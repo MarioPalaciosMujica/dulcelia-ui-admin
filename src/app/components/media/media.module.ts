@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -21,7 +22,8 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     CommonModule,
     MediaRoutingModule,
     DropzoneModule,
-    Ng2SmartTableModule
+    Ng2SmartTableModule,
+    SharedModule
   ],
   providers: [
     {

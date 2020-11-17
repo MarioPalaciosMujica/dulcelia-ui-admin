@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CategoryComponent } from './physical/category/category.component';
+import { BrandListComponent } from './physical/brand-list/brand-list.component';
+import { CatalogueListComponent } from './physical/catalogue-list/catalogue-list.component';
+import { CollectionListComponent } from './physical/collection-list/collection-list.component';
+import { TagListComponent } from './physical/tag-list/tag-list.component';
 import { SubCategoryComponent } from './physical/sub-category/sub-category.component';
 import { ProductListComponent } from './physical/product-list/product-list.component';
 import { AddProductComponent } from './physical/add-product/add-product.component';
@@ -15,31 +19,31 @@ const routes: Routes = [
     path: '',
     children: [
       {
-        path: 'physical/category',
+        path: 'categorias',
         component: CategoryComponent,
         data: {
-          title: "Category",
-          breadcrumb: "Category"
+          title: "Categorías",
+          breadcrumb: "Categorías"
         }
       },
       {
-        path: 'physical/sub-category',
-        component: SubCategoryComponent,
+        path: 'marcas',
+        component: BrandListComponent,
         data: {
-          title: "Sub Category",
-          breadcrumb: "Sub Category"
+          title: "Marcas",
+          breadcrumb: "Marcas"
         }
       },
       {
-        path: 'physical/product-list',
+        path: 'lista',
         component: ProductListComponent,
         data: {
-          title: "Product List",
-          breadcrumb: "Product List"
+          title: "Lista de Productos",
+          breadcrumb: "Lista de Productos"
         }
       },
       {
-        path: 'physical/product-detail',
+        path: 'detalle',
         component: ProductDetailComponent,
         data: {
           title: "Product Detail",
@@ -47,45 +51,61 @@ const routes: Routes = [
         }
       },
       {
-        path: 'physical/add-product',
+        path: 'editor',
         component: AddProductComponent,
         data: {
-          title: "Add Products",
-          breadcrumb: "Add Product"
+          title: "Editar Producto",
+          breadcrumb: "Editar Producto"
         }
       },
       {
-        path: 'digital/digital-category',
-        component: DigitalCategoryComponent,
+        path: 'editor/:id',
+        component: AddProductComponent,
         data: {
-          title: "Category",
-          breadcrumb: "Category"
+          title: "Editar Producto",
+          breadcrumb: "Editar Producto"
         }
       },
       {
-        path: 'digital/digital-sub-category',
-        component: DigitalSubCategoryComponent,
+        path: 'colecciones',
+        component: CollectionListComponent,
         data: {
-          title: "Sub Category",
-          breadcrumb: "Sub Category"
+          title: "Colecciónes",
+          breadcrumb: "Colecciónes"
         }
       },
       {
-        path: 'digital/digital-product-list',
-        component: DigitalListComponent,
+        path: 'catalogos',
+        component: CatalogueListComponent,
         data: {
-          title: "Product List",
-          breadcrumb: "Product List"
+          title: "Catalogos",
+          breadcrumb: "Catalogos"
         }
       },
       {
-        path: 'digital/digital-add-product',
-        component: DigitalAddComponent,
+        path: 'etiquetas',
+        component: TagListComponent,
         data: {
-          title: "Add Products",
-          breadcrumb: "Add Product"
+          title: "Etiquetas",
+          breadcrumb: "Etiquetas"
         }
-      }
+      },
+      // {
+      //   path: 'digital/digital-product-list',
+      //   component: DigitalListComponent,
+      //   data: {
+      //     title: "Product List",
+      //     breadcrumb: "Product List"
+      //   }
+      // },
+      // {
+      //   path: 'digital/digital-add-product',
+      //   component: DigitalAddComponent,
+      //   data: {
+      //     title: "Add Products",
+      //     breadcrumb: "Add Product"
+      //   }
+      // }
     ]
   }
 ];

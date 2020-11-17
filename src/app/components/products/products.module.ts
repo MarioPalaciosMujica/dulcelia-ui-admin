@@ -9,6 +9,10 @@ import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProductsRoutingModule } from './products-routing.module';
 import { CategoryComponent } from './physical/category/category.component';
+import { BrandListComponent } from './physical/brand-list/brand-list.component';
+import { CatalogueListComponent } from './physical/catalogue-list/catalogue-list.component';
+import { CollectionListComponent } from './physical/collection-list/collection-list.component';
+import { TagListComponent } from './physical/tag-list/tag-list.component';
 import { SubCategoryComponent } from './physical/sub-category/sub-category.component';
 import { ProductListComponent } from './physical/product-list/product-list.component';
 import { AddProductComponent } from './physical/add-product/add-product.component';
@@ -34,7 +38,11 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
 @NgModule({
   declarations: [
-    CategoryComponent, 
+    CategoryComponent,
+    BrandListComponent,
+    CatalogueListComponent,
+    CollectionListComponent,
+    TagListComponent,
     SubCategoryComponent, 
     ProductListComponent, 
     AddProductComponent, 

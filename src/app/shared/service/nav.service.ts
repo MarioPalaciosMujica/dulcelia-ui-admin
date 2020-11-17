@@ -41,25 +41,34 @@ export class NavService {
 			path: '/dashboard/default', title: 'Dashboard', icon: 'home', type: 'link', badgeType: 'primary', active: false
 		},
 		{
-			title: 'Products', icon: 'box', type: 'sub', active: false, children: [
-				{
-					title: 'Physical', type: 'sub', children: [
-						{ path: '/products/physical/category', title: 'Category', type: 'link' },
-						{ path: '/products/physical/sub-category', title: 'Sub Category', type: 'link' },
-						{ path: '/products/physical/product-list', title: 'Product List', type: 'link' },
-						{ path: '/products/physical/product-detail', title: 'Product Detail', type: 'link' },
-						{ path: '/products/physical/add-product', title: 'Add Product', type: 'link' },
-					]
-				},
-				{
-					title: 'digital', type: 'sub', children: [
-						{ path: '/products/digital/digital-category', title: 'Category', type: 'link' },
-						{ path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
-						{ path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
-						{ path: '/products/digital/digital-add-product', title: 'Add Product', type: 'link' },
-					]
-				},
+			title: 'Productos', icon: 'box', type: 'sub', active: false, children: [
+				{ path: '/products/lista', title: 'Listas Productos', type: 'link' },
+				{ path: '/products/editor', title: 'Editar Producto', type: 'link' },
+				{ path: '/products/marcas', title: 'Marcas', type: 'link' },
+				{ path: '/products/colecciones', title: 'Colecciones', type: 'link' },
+				{ path: '/products/etiquetas', title: 'Etiquetas', type: 'link' },
+				{ path: '/products/categorias', title: 'Categorias', type: 'link' },
+				{ path: '/products/catalogos', title: 'Catalogos', type: 'link' },
 			]
+			// title: 'Products', icon: 'box', type: 'sub', active: false, children: [
+			// 	{
+			// 		title: 'Physical', type: 'sub', children: [
+			// 			{ path: '/products/physical/category', title: 'Category', type: 'link' },
+			// 			{ path: '/products/physical/sub-category', title: 'Sub Category', type: 'link' },
+			// 			{ path: '/products/physical/product-list', title: 'Product List', type: 'link' },
+			// 			{ path: '/products/physical/product-detail', title: 'Product Detail', type: 'link' },
+			// 			{ path: '/products/physical/add-product', title: 'Add Product', type: 'link' },
+			// 		]
+			// 	},
+			// 	{
+			// 		title: 'digital', type: 'sub', children: [
+			// 			{ path: '/products/digital/digital-category', title: 'Category', type: 'link' },
+			// 			{ path: '/products/digital/digital-sub-category', title: 'Sub Category', type: 'link' },
+			// 			{ path: '/products/digital/digital-product-list', title: 'Product List', type: 'link' },
+			// 			{ path: '/products/digital/digital-add-product', title: 'Add Product', type: 'link' },
+			// 		]
+			// 	},
+			// ]
 		},
 		{
 			title: 'Sales', icon: 'dollar-sign', type: 'sub', active: false, children: [

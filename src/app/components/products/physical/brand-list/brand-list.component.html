@@ -1,0 +1,66 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>{{ 'BRAND.brand_title' | translate }}</h5>
+                </div>
+                <div class="card-body">
+                    <div class="btn-popup pull-right">
+                        <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-original-title="test"
+                            data-target="#exampleModal" (click)="open(content)">{{ 'CATEGORY.btn_add_category' | translate }}
+                        </button> -->
+                        <!-- Modal Create-->
+                        <!-- <ng-template #content let-modal>
+                            <div class="modal-header">
+                                <h5 class="modal-title f-w-600" id="exampleModalLabel">{{ 'CATEGORY.add_category' | translate }}</h5>
+                                <button type="button" class="close" aria-label="Close"
+                                    (click)="modal.dismiss('Cross click')">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                                <div class="modal-body">
+                                    <div class="form">
+                                        <div class="form-group">
+                                            <label class="mb-1">{{ 'CATEGORY.txt_category_name' | translate }}</label>
+                                            <input class="form-control" type="text" formControlName="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="mb-1">{{ 'CATEGORY.cbx_catalogue' | translate }}</label>
+                                            <select class="custom-select" formControlName="selectCatalogue">
+                                                <option [ngValue]="null">Seleccione...</option>
+                                                <option *ngFor="let item of catalogueList" [ngValue]="item.idCatalogue">{{ item.catalogueName }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary" [disabled]="!form.valid">{{ 'CATEGORY.btn_save' | translate }}</button>
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                        (click)="modal.dismiss('Cross click')">{{ 'CATEGORY.btn_close' | translate }}</button>
+                                </div>
+                            </form>
+                        </ng-template> -->
+                        <!-- /Modal Create-->
+                    </div>
+                    <div id="batchDelete" class="category-table custom-datatable">
+                        <div class="table-responsive">
+                            <ng2-smart-table
+                                [settings]="settings" 
+                                [source]="brandlist"
+                                (createConfirm)="onCreateConfirm($event)"
+                                (editConfirm)="onEditConfirm($event)"
+                                (deleteConfirm)="onDeleteConfirm($event)"
+                            ></ng2-smart-table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Container-fluid Ends-->
+

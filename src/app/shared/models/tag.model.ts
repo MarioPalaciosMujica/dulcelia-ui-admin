@@ -4,4 +4,5 @@ export interface Tag {
     name?: string;
     created?: string;
     modified?: string;
+    isSelected?: boolean;
 }

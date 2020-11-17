@@ -2,7 +2,7 @@ import { Product } from './../../../../shared/models/product.model';
 import { ProductService } from './../../../../core/services/product.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { productDB } from 'src/app/shared/tables/product-list';
+//import { productDB } from 'src/app/shared/tables/product-list';
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
 
@@ -13,7 +13,7 @@ import es from '@angular/common/locales/es';
 })
 export class ProductListComponent implements OnInit, OnDestroy {
 
-  public product_list = []
+  //public product_list = []
   public productList: Product[] = [];
 
   private subscriptions$: Subscription[] = [];
@@ -21,11 +21,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
   constructor(
     private productService: ProductService
   ) {
-    this.product_list = productDB.product;
+    //this.product_list = productDB.product;
 
     const findAllProducts$: Subscription = this.productService.findAll().subscribe(data => {
       this.productList = data as Product[];
-      console.log(this.productList);
     });
     this.subscriptions$.push(findAllProducts$);
   }
@@ -36,6 +35,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions$.forEach(el => el.unsubscribe());
+  }
+
+  delete(id: number){
+    let index = this.productList.findIndex(p => p.idProduct == id);
+    this.productList.splice(index, 1);
+
+    const deleteProduct$: Subscription = this.productService.deleteById(id).subscribe();
+    this.subscriptions$.push(deleteProduct$);
   }
 
 
