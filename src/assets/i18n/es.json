@@ -40,14 +40,18 @@
         "cmb_category": "Seleccióne Categoría",
         "chk_tag": "Seleccióne Tag",
         "price": "Precio (CLP)",
+        "units": "Unidades",
         "stock": "Stock",
         "msn_err_required": "Requerido",
         "msn_err_minlength": "El número de caracteres no puede ser inferior a ",
         "msn_err_maxlength": "El número de caracteres no puede superar los ",
         "msn_err_pattern": "El formato no es correcto",
+        "msn_err_variants": "Al menos debes ingresar una variante para este producto",
         "btn_add_image": "Añadir Imagen",
         "btn_add": "Guardar",
-        "btn_discard": "Descartar"
+        "btn_discard": "Descartar",
+        "btn_add_variant": "Añadir Variante",
+        "btn_remove_variant": "Eliminar Variante"
     }
     
 }

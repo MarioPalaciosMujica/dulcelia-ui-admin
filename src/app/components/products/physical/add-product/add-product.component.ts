@@ -1,3 +1,4 @@
+import { CataloguesEnum } from './../../../../shared/enums/catalogues.enum';
 import { ImageService } from './../../../../core/services/image.service';
 import { OptionService } from './../../../../core/services/option.service';
 import { Subscription } from 'rxjs';
@@ -113,14 +114,14 @@ export class AddProductComponent implements OnInit, OnDestroy, AfterViewInit {
         Validators.required
       ]],
       tags: this.fb.array([]),
-      price: [null, [
-        Validators.required,
-        //Validators.pattern('^\\d+\\.\\d{2}$')
-        Validators.pattern('^[0-9]+$')
-      ]],
+      // price: [null, [
+      //   Validators.required,
+      //   Validators.pattern('^[0-9]+$')
+      // ]],
       stock: [0, [
         Validators.required,
-      ]]
+      ]],
+      variants: this.fb.array([], Validators.required)
     });
     
     // Brands
@@ -170,6 +171,29 @@ export class AddProductComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(){
     //console.log('ngAfterViewInit()');
+  }
+
+  private initVariant() {
+    return this.fb.group({
+      unit: [0 ,[
+        Validators.required,
+        Validators.pattern('^[0-9]+$')
+      ]],
+      priceAmount: [null, [
+        Validators.required,
+        Validators.pattern('^[0-9]+$')
+      ]]
+    });
+  }
+
+  addVariant() {
+    const control = <FormArray>this.form.controls['variants'];
+    control.push(this.initVariant());
+  }
+
+  removeVariant(i: number) {
+    const control = <FormArray>this.form.controls['variants'];
+    control.removeAt(i);
   }
 
   private editPage(){
@@ -320,11 +344,6 @@ export class AddProductComponent implements OnInit, OnDestroy, AfterViewInit {
       this.product.currentTotalPrice = 0;
     }
 
-    // this.product.categories = [];
-    // for(let value of this.getCategory.value){
-    //   this.product.categories.push(this.categoryList.find(c => c.idCategory == Number(value)));
-    // }
-
     this.product.tags = [];
     for(let value of this.getTags.value){
       if(value != false){
@@ -340,37 +359,66 @@ export class AddProductComponent implements OnInit, OnDestroy, AfterViewInit {
       this.product.stock = null;
     }
 
-    //this.product.images = this.imageList;
-
-    // // Elaborados
-    // if(this.product.categories[0].catalogue.idCatalogue == 1){
-    //   this.product.isCapacityQty = true;
-    // }
-    // // Envasados
-    // else {
-    //   this.product.isCapacityQty = false;
-    // }
-
-    this.product.isCapacityQty = false;
-    this.product.options = [];
-
-    if(this.isCreate){
-      let variant: Variant = {};
-      variant.basePriceAmount = Number(this.getPrice.value);
-      variant.options = [];
-      variant.clientsCapacity = null;
-      variant.sku = null;
-      variant.unitQuantity = null;
-      this.product.variants = [];
-      this.product.variants.push(variant);
+    if(this.product.categories[0].catalogue.idCatalogue == CataloguesEnum.tortas){
+      this.product.isCapacityQty = true;
     }
     else {
-      this.product.variants[0].basePriceAmount = Number(this.getPrice.value);
-      this.product.variants[0].options = [];
-      this.product.variants[0].clientsCapacity = null;
-      this.product.variants[0].sku = null;
-      this.product.variants[0].unitQuantity = null;
+      this.product.isCapacityQty = false;
     }
+
+    this.product.variants = [];
+    for(let i = 0; this.getVariants.controls.length > i; i++){
+      let variant: Variant = {};
+      variant.options = [];
+      variant.sku = null;
+      variant.basePriceAmount = Number(this.getVariants.controls[i].get('priceAmount').value);
+      if(this.product.isCapacityQty){
+        variant.clientsCapacity = Number(this.getVariants.controls[i].get('unit').value);
+        variant.unitQuantity = null;
+      }
+      else {
+        variant.clientsCapacity = null;
+        variant.unitQuantity = Number(this.getVariants.controls[i].get('unit').value);
+      }
+      this.product.variants.push(variant);
+    }
+
+    let currentIndex: number = null;
+    let minorPrice: number = null;
+    for(let i = 0; this.product.variants.length > i; i++) {
+      if(minorPrice == null || this.product.variants[i].basePriceAmount < minorPrice){
+        currentIndex = i;
+        minorPrice = this.product.variants[i].basePriceAmount;
+      }
+    }
+    for(let i = 0; this.product.variants.length > i; i++) {
+      if(i == currentIndex){
+        this.product.variants[i].isSelected = true;
+      }
+      else {
+        this.product.variants[i].isSelected = false;
+      }
+    }
+
+    this.product.options = [];
+
+    // if(this.isCreate){
+    //   let variant: Variant = {};
+    //   variant.basePriceAmount = Number(this.getPrice.value);
+    //   variant.options = [];
+    //   variant.clientsCapacity = null;
+    //   variant.sku = null;
+    //   variant.unitQuantity = null;
+    //   this.product.variants = [];
+    //   this.product.variants.push(variant);
+    // }
+    // else {
+    //   this.product.variants[0].basePriceAmount = Number(this.getPrice.value);
+    //   this.product.variants[0].options = [];
+    //   this.product.variants[0].clientsCapacity = null;
+    //   this.product.variants[0].sku = null;
+    //   this.product.variants[0].unitQuantity = null;
+    // }
     
   }
 
@@ -384,7 +432,7 @@ export class AddProductComponent implements OnInit, OnDestroy, AfterViewInit {
     this.setBrand = this.product.brand != null ? this.product.brand.idBrand : null;
     this.setCollection = this.product.collection != null ? this.product.collection.idCollection : null;
     this.setCategory = this.product.categories[0].idCategory;
-    this.setPrice = this.product.variants[0].basePriceAmount;
+    //this.setPrice = this.product.variants[0].basePriceAmount;
     this.setStock = this.product.stock != null ? this.product.stock : 0;
 
     const checkArray: FormArray = this.form.get('tags') as FormArray;
@@ -400,6 +448,18 @@ export class AddProductComponent implements OnInit, OnDestroy, AfterViewInit {
 
     if(this.product.images != null && this.product.images.length >= 1){
       this.imagePreviewUrl = this.product.images[0].src;
+    }
+
+    for(let i = 0; this.product.variants.length > i; i++){
+      const control = <FormArray>this.form.controls['variants'];
+      control.push(this.initVariant());
+      if(this.product.isCapacityQty){
+        this.getVariants.controls[i].get('unit').setValue(Number(this.product.variants[i].clientsCapacity));
+      }
+      else {
+        this.getVariants.controls[i].get('unit').setValue(Number(this.product.variants[i].unitQuantity));
+      }
+      this.getVariants.controls[i].get('priceAmount').setValue(this.product.variants[i].basePriceAmount);
     }
   }
 
@@ -431,8 +491,9 @@ export class AddProductComponent implements OnInit, OnDestroy, AfterViewInit {
   get getCollection() { return this.form.get('selectCollection'); }
   get getCategory() { return this.form.get('selectCategory'); }
   get getTags() { return <FormArray>this.form.get('tags'); }
-  get getPrice() { return this.form.get('price'); }
+  //get getPrice() { return this.form.get('price'); }
   get getStock() { return this.form.get('stock'); }
+  get getVariants() { return <FormArray>this.form.get('variants'); }
 
   set setBarCode(value: string) { this.form.get('barcode').setValue(value); }
   set setTitle(value: string) { this.form.get('title').setValue(value); }
@@ -444,7 +505,7 @@ export class AddProductComponent implements OnInit, OnDestroy, AfterViewInit {
   set setCollection(value: number) { this.form.get('selectCollection').setValue(value); }
   set setCategory(value: number) { this.form.get('selectCategory').setValue(value); }
   // TODO set Tags
-  set setPrice(value: number) { this.form.get('price').setValue(value); }
+  //set setPrice(value: number) { this.form.get('price').setValue(value); }
   set setStock(value: number) { this.form.get('stock').setValue(value); }
 
 }

@@ -142,7 +142,7 @@
                                     
 
                                     <!-- Price -->
-                                    <div class="form-group row">
+                                    <!-- <div class="form-group row">
                                         <label class="col-xl-3 col-sm-4 mb-0">{{ 'ADD_PRODUCT.price' | translate }}:</label>
                                         <div class="col-xl-8 col-sm-7">
                                             <input class="form-control" type="text" formControlName="price">
@@ -153,7 +153,7 @@
                                                 {{ 'ADD_PRODUCT.msn_err_pattern' | translate }}
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <!-- Description -->
                                     <div class="form-group row">
@@ -172,14 +172,59 @@
                                         </div>
                                     </div>
 
-                                </div>
-
-                                <!-- <div class="form-group row mb-0">
-                                    <div class="product-buttons col-sm-8 offset-xl-3 offset-sm-4">
-                                        <button type="submit" class="btn btn-primary mr-1" [disabled]="!form.valid">{{ 'ADD_PRODUCT.btn_add' | translate }}</button>
-                                        <button type="button" class="btn btn-light">{{ 'ADD_PRODUCT.discard' | translate }}</button>
+                                    <!-- Variants -->
+                                    <!-- <button type="button" class="btn btn-primary mr-1 mb-3" (click)="addVariant()">{{ 'ADD_PRODUCT.btn_add_variant' | translate }}</button> -->
+                                    <br>
+                                    <hr>
+                                    <div formArrayName="variants" *ngFor="let control of this.getVariants.controls; let i = index">
+                                        <div class="form-group row" [formGroupName]="i">
+                                            <!-- Units -->
+                                            <label class="col-xl-3 col-sm-4 mb-0">{{ 'ADD_PRODUCT.units' | translate }}:</label>
+                                            <div class="col-xl-8 col-sm-7">
+                                                <input class="form-control" type="number" min="0" step="1" formControlName="unit">
+                                                <div *ngIf="this.getVariants.controls[i].get('unit').errors?.required && 
+                                                    (this.getVariants.controls[i].get('unit').dirty || this.getVariants.controls[i].get('unit').touched)" class="text text-danger">
+                                                    {{ 'ADD_PRODUCT.msn_err_required' | translate }}
+                                                </div>
+                                                <div *ngIf="this.getVariants.controls[i].get('unit').errors?.pattern && 
+                                                    !this.getVariants.controls[i].get('unit').errors?.minlength && 
+                                                    !this.getVariants.controls[i].get('unit').errors?.maxlength && 
+                                                    (this.getVariants.controls[i].get('unit').dirty || this.getVariants.controls[i].get('unit').touched)" class="text text-danger">
+                                                    {{ 'ADD_PRODUCT.msn_err_pattern' | translate }}
+                                                </div>
+                                                <br>
+                                            </div>
+                                            <!-- /Units -->
+                                            <!-- Price Amount -->
+                                            <label class="col-xl-3 col-sm-4 mb-0">{{ 'ADD_PRODUCT.price' | translate }}:</label>
+                                            <div class="col-xl-8 col-sm-7">
+                                                <input class="form-control" type="text" formControlName="priceAmount">
+                                                <div *ngIf="this.getVariants.controls[i].get('priceAmount').errors?.required && 
+                                                    (this.getVariants.controls[i].get('priceAmount').dirty || this.getVariants.controls[i].get('priceAmount').touched)" class="text text-danger">
+                                                    {{ 'ADD_PRODUCT.msn_err_required' | translate }}
+                                                </div>
+                                                <div *ngIf="this.getVariants.controls[i].get('priceAmount').errors?.pattern && 
+                                                    !this.getVariants.controls[i].get('priceAmount').errors?.minlength && 
+                                                    !this.getVariants.controls[i].get('priceAmount').errors?.maxlength && 
+                                                    (this.getVariants.controls[i].get('priceAmount').dirty || this.getVariants.controls[i].get('priceAmount').touched)" class="text text-danger">
+                                                    {{ 'ADD_PRODUCT.msn_err_pattern' | translate }}
+                                                </div>
+                                                <br>
+                                            </div>
+                                            <!-- /Price Amount -->
+                                        </div>
+                                        <button type="button" class="btn btn-light mr-1 mb-3" (click)="removeVariant(i)">{{ 'ADD_PRODUCT.btn_remove_variant' | translate }}</button>
+                                        <hr>
                                     </div>
-                                </div> -->
+                                    <br>
+                                    <button type="button" class="btn btn-primary mr-1 mb-3" (click)="addVariant()">{{ 'ADD_PRODUCT.btn_add_variant' | translate }}</button>
+                                    <div *ngIf="getVariants.errors?.required" class="text text-danger">
+                                        {{ 'ADD_PRODUCT.msn_err_variants' | translate }}
+                                    </div>
+                                    <!-- /Variants -->
+
+                                </div>
+                                <br><br>
 
                                 <div class="form-group row mb-0">
                                     <div class="product-buttons col-xl-8 col-sm-7 offset-sm-4">

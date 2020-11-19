@@ -131,6 +131,9 @@ export class CategoryComponent implements OnInit, OnDestroy {
         let idCatalogue: number = Number(event.newData.catalogue);
         let category: Category = event.newData;
         category.catalogue = this.catalogueList.find(c => c.idCatalogue == idCatalogue);
+        if(category.catalogue == null || category.catalogue == undefined){
+          category.catalogue = this.catalogueList[0];
+        }
         const edit$: Subscription = this.categoryService.save(category).subscribe();
         this.subscriptions$.push(edit$);
         event.confirm.resolve();
@@ -144,6 +147,9 @@ export class CategoryComponent implements OnInit, OnDestroy {
       let idCatalogue: number = Number(event.newData.catalogue);
       let category: Category = event.newData;
       category.catalogue = this.catalogueList.find(c => c.idCatalogue == idCatalogue);
+      if(category.catalogue == null || category.catalogue == undefined){
+        category.catalogue = this.catalogueList[0];
+      }
       const edit$: Subscription = this.categoryService.update(category).subscribe();
       this.subscriptions$.push(edit$);
       event.confirm.resolve();
